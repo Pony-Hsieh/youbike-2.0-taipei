@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename='/youbike-2.0-taipei'>
       <App />
     </BrowserRouter>
   </Provider>
