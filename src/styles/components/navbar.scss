@@ -10,7 +10,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-bottom: 1px solid #ebebeb;
   pointer-events: none;
   transition: height 0.8s;
   &.active {
@@ -80,6 +79,7 @@
   .navBar {
     flex-direction: row;
     height: auto;
+    border-bottom: 1px solid #ebebeb;
     .logo-and-control-wrapper {
       .logo {
         width: 95px;
