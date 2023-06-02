@@ -1,3 +1,6 @@
+import "../styles/pages/spotInfo.scss";
+import { MdArrowDropDown, MdArrowDropUp, MdClose } from "react-icons/md";
+
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -10,14 +13,13 @@ function SpotInfo() {
   const [countyAndDistrictMap, setCountyAndDistrictMap] = useState(new Map());
   const [showCounties, setShowCounties] = useState([]);
   const [showDistricts, setShowDistricts] = useState([]);
-
   // 篩選縣市的關鍵字
   const [countyFilterKeyword, setCountyFilterKeyword] = useState("");
 
   const [allDistrictsChecked, setAllDistrictsChecked] = useState(true);
+  const [showFilterCountyList, setShowFilterCountyList] = useState(false);
 
   useEffect(() => {
-    // TODO: 之後再回來打開
     dispatch(fetchData());
     fetchCountyAndDistrictData();
   }, []);
@@ -64,6 +66,7 @@ function SpotInfo() {
     setShowDistricts(districts);
     setAllDistrictsChecked(true);
     setCountyFilterKeyword(county);
+    setShowFilterCountyList(false);
   }
 
   /** 點擊行政區後要做的事情
@@ -96,9 +99,9 @@ function SpotInfo() {
     setAllDistrictsChecked(checked);
   }
 
+  /** 點擊 thead 之後要做的事情
+   */
   function theadClickHandler(field) {
-    console.log("theadClickHandler");
-    console.log(field);
     const { order } = compareInfo;
     if (compareInfo.field === field) {
       setCompareInfo((state) => {
@@ -187,89 +190,137 @@ function SpotInfo() {
       </tr>
     ));
 
-  return (
-    <>
-      <h1>SpotInfo</h1>
+  /** 篩選過後的縣市列表
+   */
+  const filteredCountyList = showCounties
+    .filter((county) => {
+      const keyword = countyFilterKeyword.replace(/台/g, "臺");
+      return county.includes(keyword);
+    })
+    .map((county) => (
+      <li
+        key={county}
+        onClick={(e) => {
+          countyClickHandler(e);
+        }}
+        className={`${county === countyFilterKeyword ? "match" : ""}`}
+      >
+        {county}
+      </li>
+    ));
 
-      <p>相對應的行政區</p>
-      <label>
-        <input
-          type="checkbox"
-          checked={allDistrictsChecked}
-          onChange={(e) => {
-            clickAllDistricts(e);
-          }}
-        />
-        全部勾選
-      </label>
-      <br />
-      {showDistricts.map((district) => (
-        <label key={district.name}>
+  return (
+    <div className="spotInfo">
+      <h1>站點資訊</h1>
+
+      <div className={`filter-wrapper ${showFilterCountyList ? "active" : ""}`}>
+        <div className="input-wrapper">
           <input
-            type="checkbox"
-            name={district.name}
-            value={district.name}
-            checked={district.checked}
+            className="filter-input"
+            type="text"
+            placeholder="搜尋站點"
+            value={countyFilterKeyword}
             onChange={(e) => {
-              districtClickHandler(e);
+              setCountyFilterKeyword(e.target.value);
+              setShowFilterCountyList(false);
+            }}
+            onFocus={() => {
+              setShowFilterCountyList(true);
+            }}
+            onClick={() => {
+              setShowFilterCountyList(true);
             }}
           />
-          {district.name}
-        </label>
-      ))}
-
-      <p>輸入文字框</p>
-      <input
-        type="text"
-        value={countyFilterKeyword}
-        onChange={(e) => {
-          setCountyFilterKeyword(e.target.value);
-        }}
-      />
-      {showCounties
-        .filter((county) => {
-          const keyword = countyFilterKeyword.replace(/台/g, "臺");
-          return county.includes(keyword);
-        })
-        .map((county) => (
-          <li
-            key={county}
-            onClick={(e) => {
-              countyClickHandler(e);
+          <button
+            type="button"
+            className="clear-button"
+            onClick={() => {
+              setCountyFilterKeyword("");
+              setShowFilterCountyList(true);
             }}
           >
-            {county}
-          </li>
-        ))}
-
-      <h2>站點資訊</h2>
-
-      <table>
-        <thead>
-          <tr>
-            {theadList.map((eachTHead) => (
-              <th
-                key={eachTHead.name}
-                onClick={() => {
-                  theadClickHandler(eachTHead.field);
-                }}
-              >
-                {eachTHead.name}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {renderList.length > 0 ? (
-            renderList
+            {showFilterCountyList ? <MdClose /> : <MdClose />}
+          </button>
+          <button
+            type="button"
+            className="toggle-button"
+            onClick={() => {
+              setShowFilterCountyList(!showFilterCountyList);
+            }}
+          >
+            {showFilterCountyList ? <MdArrowDropUp /> : <MdArrowDropDown />}
+          </button>
+        </div>
+        <ul className="filtered-list">
+          {filteredCountyList.length === 0 ? (
+            <li>查無相關縣市名稱</li>
           ) : (
-            <tr>
-              <td colSpan="5">目前僅提供臺北市的資料</td>
-            </tr>
+            filteredCountyList
           )}
-        </tbody>
-      </table>
-    </>
+        </ul>
+      </div>
+
+      <div className="district-wrapper">
+        {filteredCountyList.length === 1 ? (
+          <>
+            <input
+              type="checkbox"
+              checked={allDistrictsChecked}
+              onChange={(e) => {
+                clickAllDistricts(e);
+              }}
+              className="chck-all-distirct-button"
+              id="check-all"
+            />
+            <label htmlFor="check-all">全部勾選</label>
+            {showDistricts.map((district) => (
+              <>
+                <input
+                  type="checkbox"
+                  name={district.name}
+                  value={district.name}
+                  checked={district.checked}
+                  onChange={(e) => {
+                    districtClickHandler(e);
+                  }}
+                  id={`districtList${district.name}`}
+                />
+                <label htmlFor={`districtList${district.name}`}>
+                  {district.name}
+                </label>
+              </>
+            ))}
+          </>
+        ) : null}
+        <br />
+      </div>
+
+      <div className="bike-data-table-wrapper">
+        {renderList.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                {theadList.map((eachTHead) => (
+                  <th
+                    key={eachTHead.name}
+                    onClick={() => {
+                      theadClickHandler(eachTHead.field);
+                    }}
+                  >
+                    {eachTHead.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>{renderList}</tbody>
+          </table>
+        ) : (
+          <>
+            <p className="no-data-info">目前僅提供台北市的資料</p>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
