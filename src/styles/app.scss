@@ -1,0 +1,13 @@
+* {
+  font-family: "Noto Sans TC", "Noto Sans", sans-serif;
+}
+
+.app {
+  padding-top: 76px;
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding-top: 95px;
+  }
+}
