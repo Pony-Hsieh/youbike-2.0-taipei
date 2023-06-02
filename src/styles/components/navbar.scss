@@ -1,0 +1,123 @@
+@import "../colors";
+
+.navBar {
+  display: flex;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #ebebeb;
+  pointer-events: none;
+  transition: height 0.8s;
+  &.active {
+    pointer-events: auto;
+  }
+  .logo-and-control-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+    border-bottom: 1px solid #ebebeb;
+    background: #fff;
+    pointer-events: auto;
+    .logo {
+      display: block;
+      width: 65px;
+      height: 65px;
+      margin: 7px 0 0 32px;
+      background: url(../../../public/logo.png) center / contain;
+    }
+    .control {
+      margin-right: 30px;
+      color: $main-color;
+      font-size: 18px;
+    }
+  }
+  .main-nav {
+    position: absolute;
+    top: 76px;
+    left: 100%;
+    width: 100%;
+    height: calc(100% - 76px);
+    padding: 32px;
+    background: $main-color;
+    opacity: 0;
+    transition: left 0.8s, opacity 0.8s;
+    &.active {
+      left: 0;
+      opacity: 1;
+      transition: left 0.8s, opacity 0.8s;
+    }
+    li {
+      &:not(:first-child) {
+        margin-top: 32px;
+      }
+    }
+    a {
+      color: #fff;
+      &.active {
+        color: $dark-main-color;
+      }
+    }
+    .login {
+      margin-top: 254px;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      background-color: #fff;
+      color: $main-color;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .navBar {
+    flex-direction: row;
+    height: auto;
+    .logo-and-control-wrapper {
+      .logo {
+        width: 95px;
+        height: 95px;
+        margin: 6px 0 0 10%;
+      }
+      .control {
+        display: none;
+      }
+    }
+    .main-nav {
+      display: flex;
+      position: static;
+      align-items: center;
+      height: auto;
+      margin-left: 60px;
+      padding: 0;
+      background: transparent;
+      opacity: 1;
+      li {
+        &:not(:first-child) {
+          margin-top: 0;
+          margin-left: 40px;
+        }
+      }
+      a {
+        color: $dark-main-color;
+        &.active {
+          color: $main-color;
+        }
+      }
+      .login {
+        position: absolute;
+        right: 6%;
+        margin-top: 0;
+        background: $main-color;
+        color: #fff;
+      }
+    }
+  }
+}
