@@ -1,29 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-import Footer from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import './styles/app.scss';
+
+import Navbar from './components/Navbar';
+import Directions from './pages/Directions';
+import Charge from './pages/Charge';
 import SpotInfo from './pages/SpotInfo';
+import News from './pages/News';
+import Activity from './pages/Activity';
+import NoMatch from './pages/NoMatch';
 
 
 function App() {
   return (
-    <div className="App">
-      <SpotInfo/>
-      <Footer/>
-      
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+    <div className="app">
+      <Navbar />
+      <Routes>
+        <Route path={'/'} element={<SpotInfo />}></Route>
+        <Route path={'/directions'} element={<Directions />}></Route>
+        <Route path={'/charge'} element={<Charge />}></Route>
+        <Route path={'/news'} element={<News />}></Route>
+        <Route path={'/activity'} element={<Activity />}></Route>
+        <Route path={'*'} element={<NoMatch />}></Route>
+      </Routes>
     </div>
   );
 }
