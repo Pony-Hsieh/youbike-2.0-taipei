@@ -17,7 +17,8 @@
   - 可全選、全不選
 - youbike 站點 table
   - 點擊表頭，可依據該欄位排序
+- 當用戶進入不存在的頁面時，5 秒後自動導回首頁，也可點擊按鈕立即前往首頁
 
 ## 串接 api 資訊
 - [YouBike2.0臺北市公共自行車即時資訊](https://data.gov.tw/dataset/137993)
-- [全部縣市清單列表](https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json)
+- [全部縣市、行政區清單列表](https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json)
