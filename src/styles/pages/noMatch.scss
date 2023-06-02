@@ -1,0 +1,27 @@
+@import "../colors";
+
+.noMatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 76px);
+  color: #323232;
+  font-size: 24px;
+  p {
+    margin-top: 36px;
+  }
+  button {
+    margin-top: 72px;
+    padding: 10px 24px;
+    border-radius: 9999px;
+    background: $main-color;
+    color: #fff;
+    font-size: 24px;
+  }
+}
+@media (min-width: 768px) {
+  .noMatch {
+    height: calc(100vh - 95px);
+  }
+}
