@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/youbike-2.0-taipei/static/css/main.898c4113.css",
+    "main.js": "/youbike-2.0-taipei/static/js/main.bf142276.js",
+    "static/js/787.0f993e89.chunk.js": "/youbike-2.0-taipei/static/js/787.0f993e89.chunk.js",
+    "index.html": "/youbike-2.0-taipei/index.html",
+    "main.898c4113.css.map": "/youbike-2.0-taipei/static/css/main.898c4113.css.map",
+    "main.bf142276.js.map": "/youbike-2.0-taipei/static/js/main.bf142276.js.map",
+    "787.0f993e89.chunk.js.map": "/youbike-2.0-taipei/static/js/787.0f993e89.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.898c4113.css",
+    "static/js/main.bf142276.js"
+  ]
+}
