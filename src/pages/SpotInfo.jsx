@@ -218,7 +218,7 @@ function SpotInfo() {
           <input
             className="filter-input"
             type="text"
-            placeholder="搜尋站點"
+            placeholder="搜尋縣市"
             value={countyFilterKeyword}
             onChange={(e) => {
               setCountyFilterKeyword(e.target.value);
@@ -272,7 +272,9 @@ function SpotInfo() {
               className="chck-all-distirct-button"
               id="check-all"
             />
-            <label htmlFor="check-all">全部勾選</label>
+            <label htmlFor="check-all">
+              {allDistrictsChecked ? "全部取消勾選" : "全部勾選"}
+            </label>
             {showDistricts.map((district) => (
               <>
                 <input
