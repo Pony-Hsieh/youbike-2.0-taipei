@@ -176,10 +176,10 @@ function SpotInfo() {
 
   /** 渲染車輛資訊列表
    */
-  const renderList = youbikeData
+  const renderList = cloneDeep(youbikeData)
     // 應該只有行政區需要做 filter
     .filter((eachData) => filterBikeData(eachData))
-    .toSorted(order)
+    .sort(order)
     .map((el) => (
       <tr key={el.sno}>
         <td>台北市</td>
